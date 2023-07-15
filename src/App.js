@@ -1,7 +1,11 @@
 import ComA from './components/ComA'
 import ComB from './components/ComB'
-
+import store from './store/index.js'
 import { connect } from 'react-redux'
+
+store.subscribe(function () {
+  console.log('订阅：', store.getState())
+})
 
 function App({ incre, decre }) {
   return (
