@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import ComA from './components/ComA'
+import ComB from './components/ComB'
 
-function App() {
+import { connect } from 'react-redux'
+
+function App({ incre, decre }) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div style={{ border: '1px solid red', padding: '10px', margin: '10px' }}>
+      <h1>App组件</h1>
+      <p>
+        <button
+          onClick={() => {
+            incre()
+          }}
         >
-          Learn React
-        </a>
-      </header>
+          count++
+        </button>
+        <button
+          onClick={() => {
+            decre()
+          }}
+        >
+          count--
+        </button>
+      </p>
+      <ComA />
+      <ComB />
     </div>
-  );
+  )
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    incre: () => {
+      // 通过dispath分发 action动作去修改store中数据
+      // 必须设定type属性，指定触发action的类型，
+      dispatch({ type: 'increment' })
+    },
+    decre: () => {
+      dispatch({ type: 'decrement' })
+    },
+  }
+}
+// connect设置第二个参数为触发action,第一个参数为获取store中数据，如果用不上写null即可
+export default connect(null, mapDispatchToProps)(App)
