@@ -9,7 +9,9 @@ import {
   Outlet,
   Navigate,
   useLocation,
+  Switch,
 } from 'react-router-dom'
+import { withComponentGuard } from './Hoc'
 
 import style from './style.module.css'
 const Order = () => <h3>订单</h3>
@@ -32,12 +34,20 @@ const User = () => {
     </>
   )
 }
-const Cart = () => <h3>Cart 页面</h3>
+const Cart = withComponentGuard(
+  () => <h3>Cart 页面</h3>,
+  () => {
+    console.log('cart enter')
+  },
+  () => {
+    console.log('cart leave')
+  }
+)
 
 function App() {
   const location = useLocation()
   useEffect(() => {
-    console.log(location.pathname)
+    // console.log(location.pathname)
   }, [location.pathname])
   return (
     <>
