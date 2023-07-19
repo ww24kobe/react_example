@@ -6,7 +6,8 @@ import { connect } from 'react-redux'
 function App({ incre, decre }) {
   return (
     <div style={{ border: '1px solid red', padding: '10px', margin: '10px' }}>
-      <h1>App组件</h1>
+      <h1 style={{ textAlign: 'center' }}>redux的使用</h1>
+      <h2>App组件</h2>
       <p>
         <button
           onClick={() => {
