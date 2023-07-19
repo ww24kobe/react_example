@@ -65,6 +65,7 @@ function App() {
           <Route path="/user" element={<User />}>
             <Route path="order" element={<Order />} />
             <Route path="address" element={<Address />} />
+            <Route index element={<Navigate to="/user/address" />} />
           </Route>
           {/* 或者渲染一个组件函数组件 */}
           <Route path="/cart" Component={CartGuard} />
