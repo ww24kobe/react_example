@@ -15,7 +15,8 @@ const Order = () => <h3>订单</h3>
 const Address = () => <h3>地址</h3>
 const Home = () => <h3>首页</h3>
 const Test = () => <h3>Test</h3>
-const NotFound = () => <h3>NotFound</h3>
+const NotFound = () => <h3>404 NotFound</h3>
+
 const User = () => {
   return (
     <>
@@ -53,8 +54,8 @@ function App() {
       <div>
         {/* NavLink相对于Link含有当前激活类名active，可设置样式 */}
         <NavLink to="/">首页 </NavLink>
-        <Link to="/cart">购物车 </Link>
-        <NavLink to="/user">个人中心 </NavLink>
+        <NavLink to="/cart">购物车 </NavLink>
+        <NavLink to="/user">个人中心(嵌套) </NavLink>
         <Link to="/a">重定向</Link>
         <Link to="/test">test</Link>
         <Link to="/c">404</Link>
@@ -69,21 +70,10 @@ function App() {
           <Route path="/cart" Component={CartGuard} />
           {/* 重定向到 / */}
           <Route path="/a" element={<Navigate to="/" />} />
-          <Route
-            path="/test"
-            exact
-            element={<Test />}
-            loader={() => {
-              console.log('loader')
-            }}
-            action={() => {
-              console.log('action')
-            }}
-          />
+          <Route path="/test" element={<Test />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
-      <Outlet />
     </>
   )
 }
