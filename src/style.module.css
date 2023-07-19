@@ -4,7 +4,9 @@ a {
     padding: 0 10px;
     color: #666;
 }
-.active {
+
+/* 全局的，或者框架自身携带的类名不做hash处理，这样可以覆盖原本样式 */
+:global(.active) {
     border-bottom: 2px solid orange;
 }
 
