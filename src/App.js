@@ -31,6 +31,7 @@ const User = () => {
           <Link to="/user/address">收货地址</Link>
         </li>
       </ul>
+      {/* 功能组件（不展示任何内容，仅作为一种抽象的存在）：嵌套子组件显示的容器 */}
       <Outlet />
     </>
   )
