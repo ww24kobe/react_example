@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import {
   BrowserRouter as Router,
-  HashRouter,
   Link,
   NavLink,
   Route,
   Routes,
   Outlet,
   Navigate,
-  useLocation,
-  Switch,
 } from 'react-router-dom'
 import { withComponentGuard } from './Hoc'
-
 import style from './style.module.css'
+
 const Order = () => <h3>订单</h3>
 const Address = () => <h3>地址</h3>
 const Home = () => <h3>首页</h3>
+const Test = () => <h3>Test</h3>
+const NotFound = () => <h3>NotFound</h3>
 const User = () => {
   return (
     <>
@@ -34,7 +33,8 @@ const User = () => {
     </>
   )
 }
-const Cart = withComponentGuard(
+
+const CartGuard = withComponentGuard(
   () => <h3>Cart 页面</h3>,
   () => {
     console.log('cart enter')
@@ -45,10 +45,6 @@ const Cart = withComponentGuard(
 )
 
 function App() {
-  const location = useLocation()
-  useEffect(() => {
-    // console.log(location.pathname)
-  }, [location.pathname])
   return (
     <>
       <h1 style={{ textAlign: 'center' }} className={style.title}>
@@ -60,6 +56,8 @@ function App() {
         <Link to="/cart">购物车 </Link>
         <NavLink to="/user">个人中心 </NavLink>
         <Link to="/a">重定向</Link>
+        <Link to="/test">test</Link>
+        <Link to="/c">404</Link>
         <Routes>
           {/* 渲染一个元素 */}
           <Route path="/" element={<Home />} />
@@ -67,10 +65,22 @@ function App() {
             <Route path="order" element={<Order />} />
             <Route path="address" element={<Address />} />
           </Route>
-          {/* 或者渲染一个组件对象 */}
-          <Route path="/cart" Component={Cart} />
+          {/* 或者渲染一个组件函数组件 */}
+          <Route path="/cart" Component={CartGuard} />
           {/* 重定向到 / */}
           <Route path="/a" element={<Navigate to="/" />} />
+          <Route
+            path="/test"
+            exact
+            element={<Test />}
+            loader={() => {
+              console.log('loader')
+            }}
+            action={() => {
+              console.log('action')
+            }}
+          />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
       <Outlet />
