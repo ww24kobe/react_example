@@ -12,14 +12,10 @@ import {
 } from 'react-router-dom'
 
 import style from './style.module.css'
-console.log(style)
 const Order = () => <h3>订单</h3>
 const Address = () => <h3>地址</h3>
 const Home = () => <h3>首页</h3>
 const User = () => {
-  // 监听当前组件下面路由的切换
-  const location = useLocation()
-  console.log(location)
   return (
     <>
       <h3>个人中心</h3>
@@ -39,6 +35,10 @@ const User = () => {
 const Cart = () => <h3>Cart 页面</h3>
 
 function App() {
+  const location = useLocation()
+  useEffect(() => {
+    console.log(location.pathname)
+  }, [location.pathname])
   return (
     <>
       <h1 style={{ textAlign: 'center' }} className={style.title}>
