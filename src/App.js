@@ -1,23 +1,42 @@
-import { useRef } from 'react'
-import Mock from 'mockjs'
+import { useRef, useState } from 'react'
 import { useRequest } from 'ahooks'
+import { message } from 'antd'
 
-function getUsername() {
+function changeUsername(username) {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(Mock.mock('@name'))
+      resolve({ success: true })
     }, 1000)
   })
 }
 
 function App() {
-  const { data, error, loading } = useRequest(getUsername)
+  const [state, setState] = useState('')
+
+  const { loading, run } = useRequest(changeUsername, {
+    manual: true,
+    onSuccess: (result, params) => {
+      if (result.success) {
+        setState('')
+        message.success(`The username was changed to "${params[0]}" !`)
+      }
+    },
+  })
 
   return (
     <>
       <h3>useRequest演示</h3>
-      {error && 'fail to load'}
-      {loading ? <div>loading...</div> : <div>Username:{data}</div>}
+      <div>
+        <input
+          onChange={(e) => setState(e.target.value)}
+          value={state}
+          placeholder="Please enter username"
+          style={{ width: 240, marginRight: 16 }}
+        />
+        <button disabled={loading} type="button" onClick={() => run(state)}>
+          {loading ? 'Loading' : 'Edit'}
+        </button>
+      </div>
     </>
   )
 }
