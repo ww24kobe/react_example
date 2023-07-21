@@ -6,6 +6,8 @@ import Cart from '../views/Cart'
 import NotFound from '../views/NotFound'
 import Test from '../views/Test'
 import Address from '../views/Address'
+import List from '../views/List'
+import Detail from '../views/Detail'
 
 const routes = [
   {
@@ -15,6 +17,16 @@ const routes = [
   {
     path: '/cart',
     element: <Cart />,
+  },
+  {
+    path: '/list',
+    element: <List />,
+    children: [
+      {
+        path: 'detail/:id/:title/:content',
+        element: <Detail />,
+      },
+    ],
   },
   {
     path: '/user',

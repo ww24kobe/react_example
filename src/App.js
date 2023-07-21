@@ -31,6 +31,7 @@ function App() {
         {/* NavLink相对于Link含有当前激活类名active，可设置样式 */}
         <NavLink to="/">首页 </NavLink>
         <NavLink to="/cart">购物车 </NavLink>
+        <NavLink to="/list">新闻列表 </NavLink>
         <NavLink to="/user">个人中心(嵌套) </NavLink>
         <Link to="/a">重定向</Link>
         <Link to="/test">test</Link>
