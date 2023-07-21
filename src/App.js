@@ -1,44 +1,65 @@
-import { useRef, useState } from 'react'
-import { useRequest } from 'ahooks'
-import { message } from 'antd'
+import { Table } from 'antd'
+import React from 'react'
+import {
+  HomeOutlined,
+  LoadingOutlined,
+  SettingFilled,
+  SmileOutlined,
+  SyncOutlined,
+} from '@ant-design/icons'
+import { Space } from 'antd'
+import { useAntdTable } from 'ahooks'
 
-function changeUsername(username) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({ success: true })
-    }, 1000)
-  })
+const getTableData = ({ current, pageSize }) => {
+  const query = `page=${current}&size=${pageSize}`
+
+  return fetch(`https://randomuser.me/api?results=55&${query}`)
+    .then((res) => res.json())
+    .then((res) => ({
+      total: res.info.results,
+      list: res.results,
+    }))
 }
 
-function App() {
-  const [state, setState] = useState('')
+export default () => {
+  const { tableProps } = useAntdTable(getTableData)
+  console.log('tableProps:', tableProps)
 
-  const { loading, run } = useRequest(changeUsername, {
-    manual: true,
-    onSuccess: (result, params) => {
-      if (result.success) {
-        setState('')
-        message.success(`The username was changed to "${params[0]}" !`)
-      }
+  const columns = [
+    {
+      title: '名字',
+      dataIndex: ['name', 'last'],
     },
-  })
+    {
+      title: '邮箱',
+      dataIndex: 'email',
+    },
+    {
+      title: '电话',
+      dataIndex: 'phone',
+    },
+    {
+      title: '性别',
+      dataIndex: 'gender',
+    },
+  ]
 
   return (
     <>
-      <h3>useRequest演示</h3>
-      <div>
-        <input
-          onChange={(e) => setState(e.target.value)}
-          value={state}
-          placeholder="Please enter username"
-          style={{ width: 240, marginRight: 16 }}
-        />
-        <button disabled={loading} type="button" onClick={() => run(state)}>
-          {loading ? 'Loading' : 'Edit'}
-        </button>
-      </div>
+      <Space>
+        <HomeOutlined />
+        <SettingFilled />
+        <SmileOutlined />
+        <SyncOutlined spin />
+        <SmileOutlined rotate={180} />
+        <LoadingOutlined />
+      </Space>
+      <Table
+        style={{ width: '800px' }}
+        columns={columns}
+        rowKey="email"
+        {...tableProps}
+      />
     </>
   )
 }
-
-export default App
