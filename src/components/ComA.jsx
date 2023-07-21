@@ -1,10 +1,9 @@
 
 import { useState, useEffect } from 'react'
 function ComA() {
-  console.log('ComA execute');
   const [count, setCount] = useState(0)
   useEffect(() => {
-    console.log('ComA mounted & updated')
+    // console.log('ComA mounted & updated')
   }, [count])
   return (
     <div style={{ border: '1px solid green', padding: '10px', margin: '10px' }}>

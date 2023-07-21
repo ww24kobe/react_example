@@ -3,8 +3,9 @@ import ComA from './components/ComA'
 import ComB from './components/ComB'
 
 function App() {
-  console.log('App execute')
+  // console.log('App execute')
   const [count, setCount] = useState(0)
+  const [isBool, setBool] = useState(true)
   useEffect(() => {
     console.log('App mounted & updated')
   }, [count])
@@ -23,7 +24,14 @@ function App() {
         </button>
       </p>
       <ComA />
-      <ComB />
+      <button
+        onClick={() => {
+          setBool(!isBool)
+        }}
+      >
+        toggle ComB
+      </button>
+      {isBool && <ComB />}
     </div>
   )
 }
