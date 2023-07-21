@@ -1,33 +1,23 @@
 import { useRef } from 'react'
-import { useFullscreen } from 'ahooks'
+import Mock from 'mockjs'
+import { useRequest } from 'ahooks'
+
+function getUsername() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(Mock.mock('@name'))
+    }, 1000)
+  })
+}
 
 function App() {
-  const ref = useRef(null)
-  const [isFullscreen, { enterFullscreen, exitFullscreen, toggleFullscreen }] =
-    useFullscreen(ref)
+  const { data, error, loading } = useRequest(getUsername)
+
   return (
     <>
-      <h3>useFullscreen</h3>
-      <div ref={ref} style={{ background: 'red' }}>
-        <div style={{ marginBottom: 16 }}>
-          {isFullscreen ? 'Fullscreen' : 'Not fullscreen'}
-        </div>
-        <div>
-          <button type="button" onClick={enterFullscreen}>
-            enterFullscreen
-          </button>
-          <button
-            type="button"
-            onClick={exitFullscreen}
-            style={{ margin: '0 8px' }}
-          >
-            exitFullscreen
-          </button>
-          <button type="button" onClick={toggleFullscreen}>
-            toggleFullscreen
-          </button>
-        </div>
-      </div>
+      <h3>useRequest演示</h3>
+      {error && 'fail to load'}
+      {loading ? <div>loading...</div> : <div>Username:{data}</div>}
     </>
   )
 }
