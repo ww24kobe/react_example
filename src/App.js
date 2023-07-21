@@ -1,46 +1,35 @@
-import ComA from './components/ComA'
-import ComB from './components/ComB'
+import { useRef } from 'react'
+import { useFullscreen } from 'ahooks'
 
-import { connect } from 'react-redux'
-
-function App({ incre, decre }) {
+function App() {
+  const ref = useRef(null)
+  const [isFullscreen, { enterFullscreen, exitFullscreen, toggleFullscreen }] =
+    useFullscreen(ref)
   return (
-    <div style={{ border: '1px solid red', padding: '10px', margin: '10px' }}>
-      <h1 style={{ textAlign: 'center' }}>redux的使用</h1>
-      <h2>App组件</h2>
-      <p>
-        <button
-          onClick={() => {
-            incre()
-          }}
-        >
-          count++
-        </button>
-        <button
-          onClick={() => {
-            decre()
-          }}
-        >
-          count--
-        </button>
-      </p>
-      <ComA />
-      <ComB />
-    </div>
+    <>
+      <h3>useFullscreen</h3>
+      <div ref={ref} style={{ background: 'red' }}>
+        <div style={{ marginBottom: 16 }}>
+          {isFullscreen ? 'Fullscreen' : 'Not fullscreen'}
+        </div>
+        <div>
+          <button type="button" onClick={enterFullscreen}>
+            enterFullscreen
+          </button>
+          <button
+            type="button"
+            onClick={exitFullscreen}
+            style={{ margin: '0 8px' }}
+          >
+            exitFullscreen
+          </button>
+          <button type="button" onClick={toggleFullscreen}>
+            toggleFullscreen
+          </button>
+        </div>
+      </div>
+    </>
   )
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    incre: () => {
-      // 通过dispath分发 action动作去修改store中数据
-      // 必须设定type属性，指定触发action的类型，
-      dispatch({ type: 'increment' })
-    },
-    decre: () => {
-      dispatch({ type: 'decrement' })
-    },
-  }
-}
-// connect设置第二个参数为触发action,第一个参数为获取store中数据，如果用不上写null即可
-export default connect(null, mapDispatchToProps)(App)
+export default App
