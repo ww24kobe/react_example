@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
+import {useUnmount,useMount,useUpdateEffect} from 'ahooks'
 
 function useMouse() {
-  console.log('execute useMouse');
   const [x, setX] = useState(0)
   const [y, setY] = useState(0)
 
@@ -11,10 +11,10 @@ function useMouse() {
   }
 
   useEffect(() => {
-    console.log('mousemove mounted & updated');
+    console.log('usemousemove mounted & updated');
     document.addEventListener('mousemove', moveHandle)
     return () => {
-      console.log('mousemove unmounted ');
+      console.log('usemousemove unmounted ');
       document.removeEventListener('mousemove', moveHandle)
     }
   }, [])
@@ -25,11 +25,17 @@ function useMouse() {
 function ComB() {
   const [count, setCount] = useState(0)
   const {x,y} = useMouse()
-  useEffect(() => {
-    console.log('ComB mounted & updated')
-    return ()=>{
-      console.log('ComB unmounted');
-    }
+
+  useMount(()=>{
+    console.log('ComB mounted');
+  })
+
+  useUpdateEffect(() => {
+    console.log('ComB updated')
+  })
+
+  useUnmount(()=>{
+    console.log('ComB unmounted');
   })
   return (
     <div style={{ border: '1px solid blue', padding: '10px', margin: '10px' }}>
