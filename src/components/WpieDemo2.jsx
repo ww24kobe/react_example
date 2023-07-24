@@ -20,6 +20,7 @@ let options = {
 
 
 export default function WpieDemo(){
+
     return (
       <Wcontainer className="demos">
         <Wpie height="300" config={options} data={data}>
