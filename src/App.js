@@ -6,6 +6,7 @@ import LineGraphy2 from './components/LineGraphy2'
 import WpieDemo from './components/WpieDemo'
 import WpieDemo2 from './components/WpieDemo2'
 import Wradar from './components/Wradar'
+import RadialTreeGraphDemo from './components/RadialTreeGraphDemo'
 
 const data = [
   {
@@ -53,6 +54,7 @@ function App() {
       <WpieDemo />
       <WpieDemo2 />
       <Wradar />
+      <RadialTreeGraphDemo />
     </>
   )
 }
