@@ -27,9 +27,6 @@ let options = {
   area: true
 };
 
-
-
-
 export default function WpieDemo2(){
     return (
       <Wcontainer className="demos">
