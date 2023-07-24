@@ -3,12 +3,8 @@ import ComA from './components/ComA'
 import ComB from './components/ComB'
 
 function App() {
-  // console.log('App execute')
   const [count, setCount] = useState(0)
   const [isBool, setBool] = useState(true)
-  useEffect(() => {
-    console.log('App mounted & updated')
-  }, [count])
 
   return (
     <div style={{ border: '1px solid red', padding: '10px', margin: '10px' }}>
